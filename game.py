@@ -59,7 +59,7 @@ class Game:
                 # questions
                 bid_answer = input(
                     "Choose One option from the following: You can bid on \n - Red or Black \n - Even or Odd \n "
-                    "- Any number between 0 and 36 \n >>>")
+                    "- Any number between 0 and 36 \n skip if needed \n >>>")
                 # exceptions
                 if str(bid_answer) not in self.valid:
                     print(f"error, wrong answer. answer should not be {bid_answer}")
@@ -206,6 +206,9 @@ class Game:
                             print(".")
                         self.play_phase = False
                         self.shop_phase = True
+                elif bid_answer == 'skip':
+                    self.play_phase = False
+                    self.shop_phase = True
                 else:
                     continue
 
@@ -227,6 +230,7 @@ class Game:
                         print("you don't have this much")
                         continue
                     if self.money >= 300:
+                        self.money -= 300
                         self.red_mult = 3
                         print("Double Red Owned ! Red now give *3 money !")
                         continue
@@ -234,13 +238,28 @@ class Game:
                     if self.money < 300:
                         print("you don't have this much")
                         continue
+                    if self.money >= 300:
+                        self.black_mult = 3
+                        self.money -= 300
+                        print("Double black Owned ! Black now give *3 money !")
+                        continue
                 elif shop_answer == "Double Odd" or "double odd":
                     if self.money < 300:
                         print("you don't have this much")
                         continue
+                    if self.money >= 300:
+                        self.money -= 300
+                        self.odd_mult = 3
+                        print("Double Odd Owned ! Odd now give *3 money !")
+                        continue
                 elif shop_answer == "Double Even" or "double even":
                     if self.money < 300:
                         print("you don't have this much")
+                        continue
+                    if self.money >= 300:
+                        self.money -= 300
+                        self.even_mult = 3
+                        print("Double Even Owned ! Even now give *3 money !")
                         continue
             self.play_phase = True
         # END
